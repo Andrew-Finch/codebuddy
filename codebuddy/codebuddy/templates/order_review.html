@@ -1,0 +1,111 @@
+
+{% extends 'layout.html' %}
+{% block title %}
+CodeBuddy.AI Search
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .container {
+        border: 1px solid rgb(43, 43, 43);
+        border-radius: 5px;
+        padding: 20px;
+        width: 100%; /* Add this line */
+    }
+</style>
+
+
+<div class="grid-container">
+        <div class="cell small-12 medium-12 center-title">
+            <div>
+                <div class="center">
+                    <img src="static\images\code.png" alt="AI" width="100px;">
+                </div>
+                <h2 class="bold-italic">Order Review</h2>
+                <hr>
+            </div>
+        </div>
+        <div class="container"  style="margin-bottom: 20px;">
+            <h6 class="bold-italic">Order Number: {{order.order_id}}</h6>
+            <h6 class="bold-italic">Files for Optimisation: {{order.files | length}}</h6>
+            <h6 class="bold-italic">Repo: {{order.repo}}</h6>
+        </div>
+
+        <form id="optimization-form" action="/confirmation" method="POST">
+            <input type="hidden" name="repo" value='{{order.repo}}'/>
+            <input type="hidden" name="order_id" value='{{order.order_id}}'/>
+            {% for filetype in order.filetypes %}
+                <div class="container"  style="margin-bottom: 20px;">
+                    <h6 class="bold-italic">Filetype: {{filetype}} </h6> 
+                    <h6> Customise your model prompts for code optimisation:</h6>
+                    <br>
+                    <table style="font-size: small; border: 1px solid black;">
+                        <thead>
+                            <tr>
+                                <th colspan="4">File Details</th>
+                                <th colspan="3" style="border-left: 1px solid black;">Embedding Options</th>
+                                <th colspan="3" style="border-left: 1px solid black;">Model Options</th>
+                            </tr>
+                            <tr>
+                                <th>Filename</th>
+                                <th>File Type</th>
+                                <th>Token Count</th>
+                                <th>Approximate Prompt Cost</th>
+                                <th style="text-align: center;  border-left: 1px solid black;">Optimise for Readability</th>
+                                <th style="text-align: center;">Optimise for Speed</th>
+                                <th style="text-align: center;  border-right: 1px solid black;">Optimise for Sustainability</th>
+                                <th style="text-align: center;">Temperature</th>
+                                <th style="text-align: center;">Frequency Penalty</th>
+                                <th style="text-align: center;">Presence Penalty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for file in order.files %}
+                                {% if file.fileextension == filetype %}
+                                    <tr>
+                                        <td><a href="{{ file.repolink }}" >{{ file.filename }}</a></td>
+                                        <td>{{ file.fileextension }}</td>
+                                        <td>{{ file.tokens }}</td>
+                                        <td>£{{ file.cost }}</td>
+                                        <td style="text-align: center; border-left: 1px solid black;">
+                                            <input type="checkbox" name="{{ file.filename }}-speed"/>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <input type="checkbox" name="{{ file.filename }}-readability"/>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <input type="checkbox" name="{{ file.filename }}-sustainability" />
+                                        </td>
+                                        <td style="text-align: center; border-left: 1px solid black;">
+                                            <input type="number" name="{{ file.filename }}-temperatureValue" value='1' min="0" max="2" step="0.1">
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <input type="number" name="{{ file.filename }}-presence_penalty" value='0' min="0" max="2" step="0.1">
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <input type="number" name="{{ file.filename }}-frequency_penalty" value='0' min="0" max="2" step="0.1">
+                                        </td>
+                                        <input type="hidden" name="{{ file.filename }}-path" value='{{ file.path }}'/>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+            <div style="text-align: right;">
+                <a class="button red-button" href="/" role="button">Cancel</a>
+                <button class="button green-button" type="submit">Optimise!</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).foundation();
+</script>
+
+
+{% endblock %}

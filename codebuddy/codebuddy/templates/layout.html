@@ -1,0 +1,58 @@
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/foundation.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+
+    <!-- jQuery CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Foundation CSS JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/js/foundation.min.js"></script>
+    
+  </head>
+<body>  
+    
+    <nav class="top-bar topbar-responsive">
+    <div class="top-bar-title">
+      <img src="static\images\book_white.png" alt="AI" width="40px;">
+      <a class="topbar-responsive-logo" href="/"><strong>CodeBuddy.AI</strong></a>
+    </div>
+    <div id="topbar-responsive" class="topbar-responsive-links">
+      <div class="top-bar-right">
+        <ul class="menu simple vertical medium-horizontal">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+    <div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell small-12 medium-12 center-title">
+          <div>
+            <br>
+            <img src="static\images\mudano.png" alt="AI" width="200;">
+            <img src="static\images\openai.png" alt="AI" width="100;">
+            <br>
+            <br>
+
+          </div>  
+        </div>
+      </div>
+    </div>
+  
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/vendor/what-input.js"></script>
+    <script src="js/vendor/foundation.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

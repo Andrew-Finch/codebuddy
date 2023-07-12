@@ -1,0 +1,90 @@
+
+{% extends 'layout.html' %}
+{% block title %}
+Books.AI
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+            <div class="cell small-12 medium-12">
+                <!-- Search input -->
+                <br>
+                <br>
+                <div class="cell small-12 medium-12 center-title">
+                  <div>
+                    <h1>Welcome to CodeBuddy.AI</h1>
+                  </div>  
+                </div>
+
+                <div class="cell small-12 medium-12 center-title">
+                  <div>
+                    <div class="center">
+                      <img src="static\images\book.png" alt="AI" width="100px;">
+                    </div>
+                    <h4>Repository Management - with the power of AI!</h4>
+                  </div>  
+                </div>
+                
+                <hr>
+                <form action="/search" method="get">
+                  <div class="input-group">
+                    <input class="input-group-field" name="repo" type="text" placeholder="Input your repository here..." style="margin-right: 20px;">
+                    <input class="input-group-field" name="token" type="password" placeholder="Input your access token here..." style="margin-right: 20px;">
+                      <div class="input-group-button">
+                        <!-- Search button -->
+                        <button type="submit" class="button">Go!</button>
+                      </div>
+                  </div>
+                </form>
+
+                <hr>
+
+                <div class="index-grid-container">
+                  
+                  <div class="card">
+                    <div class="card-divider">
+                      Unleash powerful AI
+                    </div>
+                    <div class="card-section">
+                      <div class="center">
+                        <img src="static\images\AI.png" alt="AI" width="200px;">
+                      </div>
+                      <p>Powered by OpenAI and GPT-4, optimise your code using the most potent LLMs out there</p>
+                    </div>
+                  </div>
+                  
+                  <div class="card">
+                    <div class="card-divider">
+                      Understand your repository
+                    </div>
+                    <div class="card-section">
+                      <div class="center">
+                        <img src="static\images\code.png" alt="AI" width="200px;">
+                      </div>
+                      <p>Our Github connectivity function presents an overview of your repository with modules ready to be optimised</p>
+                    </div>
+                  </div>
+                  
+                  <div class="card">
+                    <div class="card-divider">
+                      Merge your optimisations automatically
+                    </div>
+                    <div class="card-section">
+                      <div class="center">
+                        <img src="static\images\git.png" alt="AI" width="200px;">
+                      </div>
+                      <p>Our analytics package will help you select for optimisation in batches, with cost and time data attached, thnen make them ready to mearge back to your repo!</p>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

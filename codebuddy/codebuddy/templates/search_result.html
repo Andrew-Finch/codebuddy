@@ -1,0 +1,92 @@
+
+{% extends 'layout.html' %}
+{% block title %}
+CodeBuddy.AI Search
+{% endblock %}
+
+{% block content %}
+
+<div class="grid-container">
+    <div class="grid-x grid-padding-x">
+        <div class="cell small-12 medium-12 center-title">
+            <div>
+                <div class="center">
+                    <img src="static\images\code.png" alt="AI" width="100px;">
+                </div>
+                <h2 class="bold-italic">{{repo}}</h2>
+                <hr>
+            </div>
+        </div>
+
+        <div class="cell small-12 medium-12">
+            <ul class="tabs" data-deep-link="true" data-update-history="true" data-tabs id="deeplinked-tabs">
+                <li class="tabs-title is-active">
+                    <a href="#structure" aria-selected="true">Directory Structure</a>
+                </li>
+                {% for type in filetypes %}
+                    <li class="tabs-title">
+                        <a href="#{{type}}" >.{{type}}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        
+            <div class="tabs-content" data-tabs-content="deeplinked-tabs">
+                <form id="optimization-form" action="/order" method="POST">
+                    <div class="tabs-panel is-active" id="structure">
+                        {{ html_structure | safe }}
+                    </div>
+                    {% for type in filetypes %}
+                        <div class="tabs-panel" id="{{type}}">
+                                <table style="font-size: small;">
+                                    <thead>
+                                        <tr>
+                                            <th>Filename</th>
+                                            <th>File Type</th>
+                                            <th>File Path</th>
+                                            <th>File Length</th>
+                                            <th>File Size (KB)</th>
+                                            <th>File URL</th>
+                                            <th>Token Count</th>
+                                            <th>Approximate Prompt Cost</th>
+                                            <th>Select for Optimisation?</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for file in files %}
+                                            {% if file.fileextension == "." + type %}
+                                                <tr>
+                                                    <td>{{ file.filename }}</td>
+                                                    <td>{{ file.fileextension }}</td>
+                                                    <td>{{ file.path }}</td>
+                                                    <td>{{ file.filelength }}</td>
+                                                    <td>{{ file.filesize }}</td>
+                                                    <td><a href="{{ file.repolink }}" >{{ file.repolink }}</a></td>
+                                                    <td>{{ file.tokens }}</td>
+                                                    <td>£{{ file.cost }}</td>
+                                                    <td style="text-align: center;">
+                                                        <input type="checkbox" name="{{ file.filename }}" 
+                                                            value="{'repo':'{{repo}}', 'filename':'{{ file.filename }}',  'path':'{{ file.path }}', 'fileextension':'{{ file.fileextension }}', 'filesize':'{{ file.filesize }}', 'repolink':'{{ file.repolink }}', 'tokens':'{{ file.tokens }}', 'cost':'{{ file.cost }}', 'decoded_content':'{{ file.cost }}'}"/>
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            <div style="text-align: right;">
+                                <a class="button red-button" href="/" role="button">Cancel</a>
+                                <button class="button green-button" type="submit">Next</button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).foundation();
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'layout.html' %}
+{% block title %}
+CodeBuddy.AI Search
+{% endblock %}
+
+{% block content %}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .code-container {
+        position: relative;
+        border: 1px solid #ccc;
+        color: white;
+        background-color: #303030;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        overflow: auto;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 14px;
+        line-height: 1.6;
+        white-space: pre;
+        height: 500px;
+    }
+    .bold-italic {
+        font-weight: bold;
+        font-style: italic;
+    }
+    .code-content {
+        margin: 0;
+    }
+</style>
+
+<div class="grid-container">
+    <div class="grid-x grid-padding-x">
+        <div class="cell small-12 medium-12 center-title">
+            <div>
+                <div class="center">
+                    <img src="static\images\code.png" alt="AI" width="100px;">
+                </div>
+                <h2 class="bold-italic">Order Review</h2>
+                <hr>
+            </div>
+        </div>
+        <div class="cell small-12 medium-12">
+            <h6 class="bold-italic" style="margin-bottom: 5px;">Order Number:</h6>
+            {{order_id}}
+        </div>
+        <div class="cell small-12 medium-12">
+            <h6 class="bold-italic" style="margin-bottom: 5px;">Repository:</h6>
+            {{optimised_outputs[0].repolink}}
+        </div>
+    </div>
+
+    {% for output in optimised_outputs %}
+    <hr>
+    <div class="grid-x grid-padding-x" style="margin-bottom: 10px;">
+        <div class="cell small-12 medium-12">
+            <h6 class="bold-italic" style="margin-bottom: 5px;">Filename</h6>
+            {{output.filename}}
+        </div>
+        <div class="cell small-12 medium-12">
+            <h6 class="bold-italic" style="margin-bottom: 5px;">Repository Link</h6>
+            <a href="{{output.repolink}}">{{output.repolink}}</a>
+        </div>
+        <div class="cell small-12 medium-12">
+            <div style="display: flex; justify-content: space-between;">
+                <div>
+                    <h6 class="bold-italic" style="margin-bottom: 5px;">Temperature</h6>
+                    {{output.temperatureValue}}
+                </div>
+                <div>
+                    <h6 class="bold-italic" style="margin-bottom: 5px;">Presence Penalty</h6>
+                    {{output.presence_penalty}}
+                </div>
+                <div>
+                    <h6 class="bold-italic" style="margin-bottom: 5px;">Frequency Penalty</h6>
+                    {{output.frequency_penalty}}
+                </div>
+            </div>
+        </div>
+        <div class="cell small-12 medium-6">
+            <br>
+            <h6 class="bold-italic" style="margin-bottom: 5px;">Original Code</h6>
+            <br>
+            <div class="code-container" style="padding: 10px;">
+                <pre class="code-content">
+                    {{output.decoded_content}}
+                </pre>
+            </div>
+        </div>
+    
+        <div class="cell small-12 medium-6">
+            <br>
+            <h6 class="bold-italic" style="margin-bottom: 5px;">Optimised Code</h6>
+            <br>
+            <div class="code-container" style="padding: 10px;">
+                <pre class="code-content">
+                    {{output.optimised_content}}
+                </pre>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    $(document).foundation();
+</script>
+
+{% endblock %}

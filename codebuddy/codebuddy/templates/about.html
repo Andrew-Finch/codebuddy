@@ -1,0 +1,111 @@
+
+{% extends 'layout.html' %}
+{% block title %}
+Books.AI About
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .rounded-border {
+        border: 2px solid black;
+        border-radius: 10px;
+        padding: 10px;
+        width: 200px;
+    }
+    .bold-italic-prompts {
+        font-weight: bold;
+        font-style: italic;
+        text-align: center;
+    }
+</style>
+
+<div class="grid-container">
+    <div class="grid-x grid-padding-x">
+        <div class="cell small-12 medium-12 center-title">
+            <div>
+                <div class="center">
+                    <img src="static\images\book.png" alt="AI" width="100px;">
+                </div>
+            </div>
+        </div>
+
+        <div class="cell small-12 medium-12">
+            <br>
+        </div>
+
+        <div class="cell small-12 medium-12">
+            <br>
+        </div>
+
+        <div class="cell small-12 medium-12 rounded-border">
+            <h4 class="bold-italic">What is Books.AI?</h4>
+            <br>
+            <h6>
+              Books.AI is designed to demonstrate the capability of OpenAI LLMs to summarise complex literary 
+              concepts quickly and concisely. The current build uses gpt-3.5-turbo, but gpt-4 is available for
+              use via the OpenAI API.
+            </h6>
+            <br>
+            <h6>
+              The intention of this application is to demonstrate how, with a relatively simple
+              back-end and some smart UI, a single developer with access to OpenAI API can build a useful and entertaining
+              application powered by LLMs.
+            </h6>
+        </div>
+
+        <div class="cell small-12 medium-12">
+            <br>
+        </div>
+
+        <div class="cell small-12 medium-12 rounded-border">
+            <h4 class="bold-italic">Prompts</h4>
+            <br>
+            <h6>The key to obtaining valuable and structured responses from an LLM is in submitting the correct prompts.</h6>
+            <br>
+            <h6>Listed below are some examples of the prompts used in this application to provide responses for the various parts of the results page.</h6>
+            <br>
+            <h6>To ascertain whether the user input is likely to be a book or not (cut off value set at 0.7):</h6>
+            <br>
+            <h6 class="bold-italic-prompts">
+              "Return a single float value that represents your opinion on whether {self.input} is a book. Only return this float, no other text"
+            </h6>
+            <br>
+            <h6>To return a JSON style dataset of book information,:</h6>
+            <br>
+            <h6 class="bold-italic-prompts">
+              "Tell me the author, authors nationality, date of completion, and genre of the book {input}. Present it as a python dictionary with the author, authors nationality, date of completion, and genre of the book as keys and answers as values. Only output the raw python object in the format of:"
+            </h6>
+            <br>
+            <h6 class="bold-italic-prompts">
+              {
+                "author": "author value",
+                "authors nationality": "nationality value",
+                "date of completion": "date of completion value",
+                "genre": "genre value"
+              }
+            </h6>
+            <br>
+            <h6>To return paragraph summaries on book main themes and writing styles:</h6>
+            <br>
+            <h6 class="bold-italic-prompts">
+              "Write a paragraph summarising the key themes of the book {self.input}"
+            </h6>
+            <br>
+            <h6 class="bold-italic-prompts">
+              "Write a paragraph summarising the writing style of the book {self.input}"
+            </h6>
+        </div>
+
+        <div class="cell small-12 medium-12">
+          <br>
+          <hr>
+          <br>
+        </div>
+
+        
+    </div>
+</div>
+
+
+{% endblock %}
